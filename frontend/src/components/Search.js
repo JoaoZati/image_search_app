@@ -11,12 +11,11 @@ const searchStyle = {
 class CustomForm extends Component {
     render() {
         return (
-            <Form onSubmit={alert('Form submitted!')} id="image-form">
+            <Form onSubmit={this.props.onSubmit} id="image-form">
                 <Form.Label htmlFor="inputPassword5">
                     Search Bar
                 </Form.Label>
                 <Form.Control
-                    type="password"
                     id="inputPassword5"
                     aria-describedby="passwordHelpBlock"
                     placeholder="Search for new image here..."
@@ -30,12 +29,13 @@ class CustomForm extends Component {
     }
 }
 
-function Search() {
+
+function Search({handleSubmit}) {
     return (
         <Container style = {{ marginTop: '2em'}}>
             <Row className="align-items-end">
                 <Col xs={8}>
-                    <CustomForm />
+                    <CustomForm onSubmit={handleSubmit}/>
                 </Col>
             <Col xs={4} >
                     <Button form="image-form" type="submit" variant="info" style={searchStyle}>Search</Button>{' '}

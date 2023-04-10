@@ -3,8 +3,6 @@ from flask import Flask, jsonify
 app = Flask(__name__)
 
 
-# Coud be
-# app.route('/')(hello)
 @app.route('/')
 @app.route('/api/hello')
 def hello():

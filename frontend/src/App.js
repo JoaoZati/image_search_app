@@ -24,6 +24,7 @@ function App() {
       )
       .then((data) => {
         console.log(data);
+        data['title'] = word
         setImages([data, ...images])
       })
       .catch((err) => {
@@ -36,7 +37,12 @@ function App() {
   return (
     <div>
       <Header title="Image Gallery" bg="info"/>
-      <Search word={word} setWord={setWord} handleSubmit={handleSearchSubmit}/>
+      <Search
+        word={word}
+        setWord={setWord}
+        handleSubmit={handleSearchSubmit}
+        images={images}
+      />
     </div>
   );
 }

@@ -33,7 +33,16 @@ class CustomForm extends Component {
 }
 
 
-function Search({ word, setWord, handleSubmit}) {
+function Search({ word, setWord, handleSubmit, images}) {
+    const imageCards = [];
+    for (let i = 0; i < images.length; i++) {
+        imageCards.push(
+            <Col>
+                <ImageCard image={images[i]} />
+            </Col>
+        );
+    }
+
     return (
         <Container style = {{ marginTop: '2em'}}>
             <Row className="align-items-end">
@@ -45,9 +54,7 @@ function Search({ word, setWord, handleSubmit}) {
                 </Col>
             </Row>
             <Row style = {{ marginTop: '2em'}}>
-                <Col>
-                    <ImageCard />
-                </Col>
+                {imageCards}
             </Row>
         </Container>
     )

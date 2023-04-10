@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Container, Row, Col, Button } from 'react-bootstrap';
 import ImageCard from './ImageCard';
+import Welcome from './Welcome';
 
 import Form from 'react-bootstrap/Form';
 
@@ -41,6 +42,14 @@ function Search({ word, setWord, handleSubmit, images, handleDeleteImage}) {
                 <ImageCard image={images[i]} handleDeleteImage={handleDeleteImage}/>
             </Col>
         );
+    }
+
+    if (!imageCards.length) {
+        imageCards.push(
+            <Col>
+                <Welcome />
+            </Col>
+        )
     }
 
     return (

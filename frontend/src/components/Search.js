@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Container, Row, Col, Button } from 'react-bootstrap';
+import ImageCard from './ImageCard';
 
 import Form from 'react-bootstrap/Form';
 
@@ -39,8 +40,13 @@ function Search({ word, setWord, handleSubmit}) {
                 <Col xs={8}>
                     <CustomForm word={word} setWord={setWord} onSubmit={handleSubmit}/>
                 </Col>
-            <Col xs={4} >
+                <Col xs={4} >
                     <Button form="image-form" type="submit" variant="info" style={searchStyle}>Search</Button>{' '}
+                </Col>
+            </Row>
+            <Row style = {{ marginTop: '2em'}}>
+                <Col>
+                    <ImageCard />
                 </Col>
             </Row>
         </Container>

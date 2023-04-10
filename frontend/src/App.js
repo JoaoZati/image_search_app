@@ -33,8 +33,6 @@ function App() {
     setWord('')
   }
 
-  // console.log('onchange: ' + word)
-
   return (
     <div>
       <Header title="Image Gallery" bg="info"/>

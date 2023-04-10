@@ -1,12 +1,14 @@
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request
 
 app = Flask(__name__)
 
 
-@app.route('/')
-@app.route('/api/hello')
-def hello():
-    response = {'message': 'Hello, World!'}
+@app.route('/new-image')
+def new_image():
+    word = request.args.get("query")
+
+
+    response = {'word': word}
     return jsonify(response)
 
 if __name__ == '__main__':

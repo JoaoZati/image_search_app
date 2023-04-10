@@ -6,10 +6,13 @@ from decouple import config
 app = Flask(__name__)
 
 UNSPLASH_ACCESS_KEY = config("UNSPLASH_ACCESS_KEY")
-UNSPLASH_URL = "https://api.unsplash.com"
+DEBUG=config("DEBUG", default=True, cast=bool)
 
+UNSPLASH_URL = "https://api.unsplash.com"
 SEARCH_PHOTOS = "/search/photos"
 RANDOM_PHOTO = "/photos/random"
+
+app.config['FLASK_DEBUG'] = DEBUG
 
 if not UNSPLASH_ACCESS_KEY:
     raise EnvironmentError("Please create .env with UNSPLASH_ACCES_KEY=<YOUR KEY>")

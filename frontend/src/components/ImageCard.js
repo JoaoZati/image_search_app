@@ -1,5 +1,5 @@
 import Card from 'react-bootstrap/Card';
-import { Button } from 'react-bootstrap';
+import { Row, Col, Button } from 'react-bootstrap';
 
 function ImageCard(props) {
     var image = props['image']
@@ -11,7 +11,14 @@ function ImageCard(props) {
                 <Card.Text>
                     {image.alt_description}
                 </Card.Text>
-                <Button variant="info">Save</Button>
+                <Row>
+                    <Col xs={6}>
+                        <Button variant="info" style={{width: '90%'}}>Save</Button>
+                    </Col>
+                    <Col xs={6}>
+                        <Button variant="danger" style={{width: '90%'}}>Delete</Button>
+                    </Col>
+                </Row>
             </Card.Body>
         </Card>
     );

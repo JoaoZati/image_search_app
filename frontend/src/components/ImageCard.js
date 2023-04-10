@@ -16,7 +16,13 @@ function ImageCard(props) {
                         <Button variant="info" style={{width: '90%'}}>Save</Button>
                     </Col>
                     <Col xs={6}>
-                        <Button variant="danger" style={{width: '90%'}}>Delete</Button>
+                        <Button
+                        variant="danger"
+                        style={{width: '90%'}}
+                        onClick={() => {props.handleDeleteImage(image.id)}}
+                        >
+                            Delete
+                        </Button>
                     </Col>
                 </Row>
             </Card.Body>

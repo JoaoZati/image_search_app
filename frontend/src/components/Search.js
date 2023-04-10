@@ -33,12 +33,12 @@ class CustomForm extends Component {
 }
 
 
-function Search({ word, setWord, handleSubmit, images}) {
+function Search({ word, setWord, handleSubmit, images, handleDeleteImage}) {
     const imageCards = [];
     for (let i = 0; i < images.length; i++) {
         imageCards.push(
             <Col>
-                <ImageCard image={images[i]} />
+                <ImageCard image={images[i]} handleDeleteImage={handleDeleteImage}/>
             </Col>
         );
     }

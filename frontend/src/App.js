@@ -32,7 +32,13 @@ function App() {
       })
 
     setWord('')
-  }
+  };
+
+  const handleDeleteImage = (id) => {
+    setImages(
+      images.filter((image) => image.id !== id)
+    )
+  };
 
   return (
     <div>
@@ -42,6 +48,7 @@ function App() {
         setWord={setWord}
         handleSubmit={handleSearchSubmit}
         images={images}
+        handleDeleteImage={handleDeleteImage}
       />
     </div>
   );

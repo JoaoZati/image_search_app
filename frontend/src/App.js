@@ -3,6 +3,7 @@ import Header from './components/Header';
 import Search from './components/Search';
 import { useState } from 'react';
 
+const UNSPLASH_KEY = process.env.REACT_APP_UNSPLASH_KEY;
 
 
 function App() {
@@ -13,7 +14,7 @@ function App() {
     console.log(word);
   }
 
-  console.log('onchange: ' + word)
+  // console.log('onchange: ' + word)
 
   return (
     <div>

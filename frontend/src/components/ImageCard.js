@@ -4,7 +4,7 @@ import { Row, Col, Button } from 'react-bootstrap';
 function ImageCard(props) {
     var image = props['image']
     return (
-        <Card style={{ width: '18rem' }}>
+        <Card style={{ width: '18rem', marginTop: '1em' }}>
             <Card.Img variant="top" src={image.urls.full} />
             <Card.Body>
                 <Card.Title>{image.title}</Card.Title>

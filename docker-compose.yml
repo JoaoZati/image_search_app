@@ -1,0 +1,22 @@
+version: '3'
+
+services:
+  frontend:
+    build: ./frontend
+    ports:
+      - '3000:3000'
+    env_file:
+      - ./frontend/.env.local
+    volumes:
+      # for exclude nome_modules, but I already exclude it with .dockerignore
+      - ./frontend:/app
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+  api:
+    build: ./api
+    ports:
+      - '5000:5000'
+    env_file:
+      - ./api/.env
+    volumes:
+      - ./api:/app

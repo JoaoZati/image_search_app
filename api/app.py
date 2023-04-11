@@ -2,8 +2,11 @@ from flask import Flask, jsonify, request
 import requests
 import os
 from decouple import config
+from flask_cors import CORS
+
 
 app = Flask(__name__)
+CORS(app)
 
 UNSPLASH_ACCESS_KEY = config("UNSPLASH_ACCESS_KEY")
 DEBUG=config("DEBUG", default=True, cast=bool)

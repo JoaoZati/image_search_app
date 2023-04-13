@@ -5,7 +5,11 @@ from decouple import config
 from flask_cors import CORS
 
 from debugger import initialize_debugger
-from mongo_client import insert_test_document
+from mongo_client import (
+    insert_test_document, 
+    find_images,
+    add_image,
+)
 
 app = Flask(__name__)
 CORS(app)
@@ -23,7 +27,6 @@ app.debug = DEBUG
 if not UNSPLASH_ACCESS_KEY:
     raise EnvironmentError("Please create .env with UNSPLASH_ACCES_KEY=<YOUR KEY>")
 
-insert_test_document()
 
 @app.route("/")
 @app.route("/hello_word")
@@ -54,6 +57,17 @@ def new_image():
 
     data = response.json()
     return data
+
+
+@app.route("/images", methods=["GET", "POST"])
+def images():
+    if request.method == "POST":
+        image = request.get_json()
+        return jsonify(add_image(**{'image': image}))
+
+    data = find_images() 
+    data_json = jsonify([img for img in data])
+    return data_json
 
 
 if __name__ == "__main__":

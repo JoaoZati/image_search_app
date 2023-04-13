@@ -17,6 +17,7 @@ services:
     build: ./api
     ports:
       - '5000:5000'
+      - "10001:10001"
     env_file:
       - ./api/.env
     volumes:

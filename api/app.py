@@ -4,6 +4,8 @@ import os
 from decouple import config
 from flask_cors import CORS
 
+from debugger import initialize_debugger
+from mongo_client import insert_test_document
 
 app = Flask(__name__)
 CORS(app)
@@ -20,6 +22,20 @@ app.debug = DEBUG
 
 if not UNSPLASH_ACCESS_KEY:
     raise EnvironmentError("Please create .env with UNSPLASH_ACCES_KEY=<YOUR KEY>")
+
+insert_test_document()
+
+@app.route("/")
+@app.route("/hello_word")
+def hello_word():
+    print("hello word")
+    return {"message": "ok"}
+
+
+@app.route('/insert-test-db')
+def insert_test_db():
+    insert_test_document()
+    return {"massage": "ok"}
 
 
 @app.route("/new-image")
@@ -41,4 +57,5 @@ def new_image():
 
 
 if __name__ == "__main__":
+    initialize_debugger()
     app.run(host="0.0.0.0", port=5000)

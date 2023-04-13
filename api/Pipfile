@@ -8,6 +8,8 @@ flask = "*"
 requests = "*"
 python-decouple = "*"
 flask-cors = "*"
+pymongo = "*"
+debugpy = "*"
 
 [dev-packages]
 black = "*"

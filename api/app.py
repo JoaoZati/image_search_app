@@ -61,6 +61,9 @@ def new_image():
 
     response = requests.get(url=url_photos, headers=headers, params=params)
 
+    if response.status_code == 404:
+        return jsonify({})
+
     data = response.json()
     data["title"] = word
     return data
@@ -90,7 +93,11 @@ def image_find_image():
 def images_image_id(image_id):
     data = {"deleted_id": ""}
 
-    image_id = ObjectId(image_id)
+    try:
+        image_id = ObjectId(image_id)
+    except Exception as e:
+        data['error'] = str(e)
+
     if request.method == "DELETE":
         data = delete_one_image(image_id, data=data)
 
@@ -100,3 +107,4 @@ def images_image_id(image_id):
 if __name__ == "__main__":
     initialize_debugger()
     app.run(host="0.0.0.0", port=5000)
+7

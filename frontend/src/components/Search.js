@@ -37,21 +37,23 @@ class CustomForm extends Component {
 
 
 function Search({ word, setWord, handleSubmit, images, handleDeleteImage, handleSaveImage}) {
-    console.log('function Search')
+    // console.log('function Search')
     const imageCards = [];
     for (let i = 0; i < images.length; i++) {
-        console.log('function image')
+        // console.log('function image')
 
-        imageCards.push(
-            <Col key={`image_${uuidv4()}`}>
-                <ImageCard
-                    key={`image_${uuidv4()}`}
-                    image={images[i]}
-                    handleDeleteImage={handleDeleteImage}
-                    handleSaveImage={handleSaveImage}
-                />
-            </Col>
-        );
+        if (images[i].id) {
+            imageCards.push(
+                <Col key={`image_${uuidv4()}`}>
+                    <ImageCard
+                        key={`image_${uuidv4()}`}
+                        image={images[i]}
+                        handleDeleteImage={handleDeleteImage}
+                        handleSaveImage={handleSaveImage}
+                    />
+                </Col>
+            );
+        }
     }
 
     if (!imageCards.length) {

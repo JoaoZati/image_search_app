@@ -35,14 +35,14 @@ def find_images(images_collection=images_collection) -> list:
 
     data = []
     for img in images:
-        img['_id'] = str(img.get("_id"))
+        img["_id"] = str(img.get("_id"))
         data.append(img)
 
     return data
 
 
 def add_image(images_collection=images_collection, **kwargs):
-    image = kwargs.get('image', {})
+    image = kwargs.get("image", {})
     images_collection.insert_one(image)
 
     data = images_collection.find_one({"id": image["id"]})

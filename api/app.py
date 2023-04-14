@@ -1,13 +1,11 @@
 from flask import Flask, jsonify, request, make_response
 import requests
-import os
 from decouple import config
 from flask_cors import CORS
 
-from bson import ObjectId
 from debugger import initialize_debugger
 from mongo_client import (
-    insert_test_document, 
+    insert_test_document,
     find_images,
     add_image,
 )
@@ -36,7 +34,7 @@ def hello_word():
     return {"message": "ok"}
 
 
-@app.route('/insert-test-db')
+@app.route("/insert-test-db")
 def insert_test_db():
     insert_test_document()
     return {"massage": "ok"}
@@ -57,7 +55,7 @@ def new_image():
     response = requests.get(url=url_photos, headers=headers, params=params)
 
     data = response.json()
-    data['title'] = word
+    data["title"] = word
     return data
 
 
@@ -65,7 +63,7 @@ def new_image():
 def images():
     if request.method == "POST":
         image = request.get_json()
-        return jsonify(add_image(**{'image': image}))
+        return jsonify(add_image(**{"image": image}))
 
     data_json = jsonify(find_images())
 

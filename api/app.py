@@ -1,9 +1,10 @@
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, make_response
 import requests
 import os
 from decouple import config
 from flask_cors import CORS
 
+from bson import ObjectId
 from debugger import initialize_debugger
 from mongo_client import (
     insert_test_document, 
@@ -56,6 +57,7 @@ def new_image():
     response = requests.get(url=url_photos, headers=headers, params=params)
 
     data = response.json()
+    data['title'] = word
     return data
 
 
@@ -65,8 +67,10 @@ def images():
         image = request.get_json()
         return jsonify(add_image(**{'image': image}))
 
-    data = find_images() 
-    data_json = jsonify([img for img in data])
+    data_json = jsonify(find_images())
+
+    response = make_response(data_json)
+    response.headers.set("Access-Control-Allow-Origin", "*")
     return data_json
 
 

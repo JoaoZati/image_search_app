@@ -7,7 +7,7 @@ function ImageCard(props) {
         <Card style={{ width: '18rem', marginTop: '1em', marginBotton: '1em' }}>
             <Card.Img variant="top" src={image.urls.full} />
             <Card.Body>
-                <Card.Title>{image.title}</Card.Title>
+                <Card.Title>{image.title?.toUpperCase()}</Card.Title>
                 <Card.Text>
                     {image.alt_description}
                 </Card.Text>

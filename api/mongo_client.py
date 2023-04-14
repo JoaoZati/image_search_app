@@ -30,9 +30,15 @@ def insert_test_document():
     print(mongo_result)
 
 
-def find_images(images_collection=images_collection):
+def find_images(images_collection=images_collection) -> list:
     images = images_collection.find({})
-    return images
+
+    data = []
+    for img in images:
+        img['_id'] = str(img.get("_id"))
+        data.append(img)
+
+    return data
 
 
 def add_image(images_collection=images_collection, **kwargs):

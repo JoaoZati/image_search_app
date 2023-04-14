@@ -3,6 +3,8 @@ import { Container, Row, Col, Button } from 'react-bootstrap';
 import ImageCard from './ImageCard';
 import Welcome from './Welcome';
 
+import { v4 as uuidv4 } from 'uuid';
+
 import Form from 'react-bootstrap/Form';
 
 const searchStyle = {
@@ -40,8 +42,8 @@ function Search({ word, setWord, handleSubmit, images, handleDeleteImage}) {
     for (let i = 0; i < images.length; i++) {
         console.log('function image')
         imageCards.push(
-            <Col>
-                <ImageCard image={images[i]} handleDeleteImage={handleDeleteImage}/>
+            <Col key={`image_${uuidv4()}`}>
+                <ImageCard key={`image_${uuidv4()}`} image={images[i]} handleDeleteImage={handleDeleteImage}/>
             </Col>
         );
     }
@@ -49,7 +51,7 @@ function Search({ word, setWord, handleSubmit, images, handleDeleteImage}) {
     if (!imageCards.length) {
         imageCards.push(
             <Col>
-                <Welcome />
+                <Welcome key={`image_${uuidv4()}`} />
             </Col>
         )
     }

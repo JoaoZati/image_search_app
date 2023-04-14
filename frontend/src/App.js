@@ -2,7 +2,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
 import Header from './components/Header';
 import Search from './components/Search';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 const API_URL = process.env.REACT_APP_API_URL || 'http://127.0.0.1:5000';
 
@@ -13,6 +13,23 @@ function App() {
 
   console.log('function app')
   console.log(images)
+
+  const getSavedImages = async () => {
+    try {
+      const res = await axios.get(`${API_URL}/images`);
+      console.log("getSavedImages")
+      console.log(res.data)
+      setImages(res.data || []);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+      getSavedImages()
+    }, 
+    []
+  );
 
   const handleSearchSubmit = async (e) => {
     e.preventDefault();

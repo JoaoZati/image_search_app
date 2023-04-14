@@ -57,3 +57,12 @@ def find_image_on_database(id):
         return {"on_database": True}
 
     return {"on_database": False}
+
+
+def delete_one_image(image_id, data={"deleted_id": ""}):
+    pymongo_result = images_collection.delete_one({"_id": image_id})
+
+    if pymongo_result.deleted_count:
+        data["deleted_id"] = str(image_id)
+
+    return data

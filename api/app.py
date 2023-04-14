@@ -1,14 +1,20 @@
+# Flask
 from flask import Flask, jsonify, request, make_response
-import requests
-from decouple import config
 from flask_cors import CORS
 
+# Tird party
+import requests
+from decouple import config
 from debugger import initialize_debugger
+from bson import ObjectId
+
+# App
 from mongo_client import (
     insert_test_document,
     find_images,
     add_image,
     find_image_on_database,
+    delete_one_image,
 )
 
 app = Flask(__name__)
@@ -78,6 +84,17 @@ def image_find_image():
     dict_json = request.get_json()
 
     return jsonify(find_image_on_database(dict_json.get("id")))
+
+
+@app.route("/images/<string:image_id>", methods=["DELETE"])
+def images_image_id(image_id):
+    data = {"deleted_id": ""}
+
+    image_id = ObjectId(image_id)
+    if request.method == "DELETE":
+        data = delete_one_image(image_id, data=data)
+
+    return jsonify(data)
 
 
 if __name__ == "__main__":

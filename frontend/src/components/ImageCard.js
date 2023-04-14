@@ -13,7 +13,13 @@ function ImageCard(props) {
                 </Card.Text>
                 <Row>
                     <Col xs={6}>
-                        <Button variant="info" style={{width: '90%'}}>Save</Button>
+                        <Button
+                        variant="info"
+                        style={{width: '90%'}}
+                        onClick={() => {props.handleSaveImage(image.id)}}
+                        >
+                            Save
+                        </Button>
                     </Col>
                     <Col xs={6}>
                         <Button

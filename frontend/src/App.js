@@ -27,8 +27,8 @@ function App() {
 
   useEffect(() => {
       getSavedImages()
-    }, 
-    []
+    },
+    [] // here you set variable that when changed its execute getSavedImages()
   );
 
   const handleSearchSubmit = async (e) => {
@@ -73,6 +73,21 @@ function App() {
     )
   };
 
+  const handleSaveImage = async (id) => {
+    console.log('handleSaveImage function')
+    const imageToBeSaved = images.find((image) => image.id === id);
+    const data = imageToBeSaved
+
+    console.log(data)
+    try {
+      const res = await axios.post(`${API_URL}/images`, data);
+      console.log(res.data)
+    } catch (error) {
+      console.log('axios handleSaveImage Error');
+      console.log(error)
+    }
+  };
+
   return (
     <div>
       <Header title="Image Gallery" bg="info"/>
@@ -82,6 +97,7 @@ function App() {
         handleSubmit={handleSearchSubmit}
         images={images}
         handleDeleteImage={handleDeleteImage}
+        handleSaveImage={handleSaveImage}
       />
     </div>
   );

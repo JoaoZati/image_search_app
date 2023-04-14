@@ -36,14 +36,19 @@ class CustomForm extends Component {
 }
 
 
-function Search({ word, setWord, handleSubmit, images, handleDeleteImage}) {
+function Search({ word, setWord, handleSubmit, images, handleDeleteImage, handleSaveImage}) {
     console.log('function Search')
     const imageCards = [];
     for (let i = 0; i < images.length; i++) {
         console.log('function image')
         imageCards.push(
             <Col key={`image_${uuidv4()}`}>
-                <ImageCard key={`image_${uuidv4()}`} image={images[i]} handleDeleteImage={handleDeleteImage}/>
+                <ImageCard
+                    key={`image_${uuidv4()}`}
+                    image={images[i]}
+                    handleDeleteImage={handleDeleteImage}
+                    handleSaveImage={handleSaveImage}
+                />
             </Col>
         );
     }

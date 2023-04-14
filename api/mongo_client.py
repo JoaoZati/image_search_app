@@ -48,3 +48,12 @@ def add_image(images_collection=images_collection, **kwargs):
     data = images_collection.find_one({"id": image["id"]})
     data["_id"] = str(data.get("_id"))
     return data
+
+
+def find_image_on_database(id):
+    image = images_collection.find_one({"id": id})
+
+    if image:
+        return {"on_database": True}
+
+    return {"on_database": False}

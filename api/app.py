@@ -8,6 +8,7 @@ from mongo_client import (
     insert_test_document,
     find_images,
     add_image,
+    find_image_on_database,
 )
 
 app = Flask(__name__)
@@ -70,6 +71,13 @@ def images():
     response = make_response(data_json)
     response.headers.set("Access-Control-Allow-Origin", "*")
     return data_json
+
+
+@app.route("/images/find-image", methods=["POST"])
+def image_find_image():
+    dict_json = request.get_json()
+
+    return jsonify(find_image_on_database(dict_json.get("id")))
 
 
 if __name__ == "__main__":

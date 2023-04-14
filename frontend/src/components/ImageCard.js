@@ -2,7 +2,14 @@ import Card from 'react-bootstrap/Card';
 import { Row, Col, Button } from 'react-bootstrap';
 
 function ImageCard(props) {
+    console.log('render image card')
     var image = props['image']
+    console.log(image)
+    console.log(image["saved_database"])
+
+    var variant = image.saved_database ? "success": "info";
+    var button_text = image.saved_database ? "Saved": "Save";
+
     return (
         <Card style={{ width: '18rem', marginTop: '1em', marginBotton: '1em' }}>
             <Card.Img variant="top" src={image.urls.full} />
@@ -14,11 +21,11 @@ function ImageCard(props) {
                 <Row>
                     <Col xs={6}>
                         <Button
-                        variant="info"
+                        variant={variant}
                         style={{width: '90%'}}
                         onClick={() => {props.handleSaveImage(image.id)}}
                         >
-                            Save
+                            {button_text}
                         </Button>
                     </Col>
                     <Col xs={6}>

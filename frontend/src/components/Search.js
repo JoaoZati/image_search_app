@@ -41,6 +41,7 @@ function Search({ word, setWord, handleSubmit, images, handleDeleteImage, handle
     const imageCards = [];
     for (let i = 0; i < images.length; i++) {
         console.log('function image')
+
         imageCards.push(
             <Col key={`image_${uuidv4()}`}>
                 <ImageCard

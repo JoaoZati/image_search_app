@@ -18,6 +18,7 @@ function App() {
     try {
       const res = await axios.get(`${API_URL}/images`);
       console.log("getSavedImages")
+      res.data.map((image) => image["saved_database"] = true)
       console.log(res.data)
       setImages(res.data || []);
     } catch (error) {
@@ -81,7 +82,17 @@ function App() {
     console.log(data)
     try {
       const res = await axios.post(`${API_URL}/images`, data);
+      console.log("handleSaveImage data:")
       console.log(res.data)
+
+      if (res.data?.id) {
+        let new_images = images.map(
+          (image) => image.id === id ? {...image, "saved_database": true}: {...image}
+        );
+        console.log("new_images")
+
+        setImages(new_images)
+      }
     } catch (error) {
       console.log('axios handleSaveImage Error');
       console.log(error)

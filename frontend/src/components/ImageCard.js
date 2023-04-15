@@ -1,5 +1,47 @@
 import Card from 'react-bootstrap/Card';
-import { Row, Col, Button } from 'react-bootstrap';
+import { Row, Col, Button, Nav } from 'react-bootstrap';
+
+function createCardFooter(image) {
+    var cardFooter = [];
+    if (!image.user) {
+        cardFooter.push(
+            <Card.Footer className="text-center text-muted">
+                No author
+            </Card.Footer>
+        )
+
+        return cardFooter
+    }
+
+    let name = image.user.name ? image.user.name: "No author";
+    let portfolio_url = image.user.portfolio_url
+    console.log('name:', name);
+    console.log('portfolio_url', portfolio_url)
+
+    if (!portfolio_url) {
+        console.log("return CardFooter Portifolio")
+        console.log(name)
+        cardFooter.push(
+            <Card.Footer className="text-center text-muted">
+                {name}
+            </Card.Footer>
+        )
+
+        return cardFooter
+    }
+    
+    cardFooter.push(
+        <Card.Footer>
+            <Nav className="justify-content-center">
+                <Nav.Item>
+                    <Nav.Link href={portfolio_url} target={"_blank"}>{name}</Nav.Link>
+                </Nav.Item>
+            </Nav>
+        </Card.Footer>
+    )
+
+    return cardFooter
+}
 
 function ImageCard(props) {
     // console.log('render image card')
@@ -9,6 +51,8 @@ function ImageCard(props) {
 
     var variant = image.saved_database ? "success": "info";
     var button_text = image.saved_database ? "Saved": "Save";
+
+    var cardFooter = createCardFooter(image);
 
     return (
         <Card style={{ width: '18rem', marginTop: '1em', marginBotton: '1em' }}>
@@ -39,6 +83,14 @@ function ImageCard(props) {
                     </Col>
                 </Row>
             </Card.Body>
+            {cardFooter}
+            {/* <Card.Footer>
+                <Nav className="justify-content-center" activeKey="/home">
+                    <Nav.Item>
+                        <Nav.Link href="/home">Active</Nav.Link>
+                    </Nav.Item>
+                </Nav>
+            </Card.Footer> */}
         </Card>
     );
 }

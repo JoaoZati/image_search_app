@@ -2,6 +2,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
 import Header from './components/Header';
 import Search from './components/Search';
+import Loader from './components/Loader';
 import { useEffect, useState } from 'react';
 
 const API_URL = process.env.REACT_APP_API_URL || 'http://127.0.0.1:5000';
@@ -10,9 +11,10 @@ const API_URL = process.env.REACT_APP_API_URL || 'http://127.0.0.1:5000';
 function App() {
   const [word, setWord] = useState('');
   const [images, setImages] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  // // console.log('function app')
-  // // console.log(images)
+  console.log('function app')
+  // console.log(images)
 
   const getSavedImages = async () => {
     try {
@@ -21,6 +23,7 @@ function App() {
       res.data.map((image) => image["saved_database"] = true)
       // console.log(res.data)
       setImages(res.data || []);
+      setLoading(false);
     } catch (error) {
       // console.log(error);
     }
@@ -100,14 +103,24 @@ function App() {
   return (
     <div>
       <Header title="Image Gallery" bg="info"/>
-      <Search
-        word={word}
-        setWord={setWord}
-        handleSubmit={handleSearchSubmit}
-        images={images}
-        handleDeleteImage={handleDeleteImage}
-        handleSaveImage={handleSaveImage}
-      />
+      {
+        loading ? (
+          <Loader />
+        ) : (
+          <> {/* Just for use more than one JXS element, not the case but if want to know */}
+            <Search
+              word={word}
+              setWord={setWord}
+              handleSubmit={handleSearchSubmit}
+              images={images}
+              handleDeleteImage={handleDeleteImage}
+              handleSaveImage={handleSaveImage}
+            />
+          </>
+        )
+      }
+      
+      {}
     </div>
   );
 }

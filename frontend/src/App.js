@@ -1,9 +1,11 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
+import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios';
 import Header from './components/Header';
 import Search from './components/Search';
 import Loader from './components/Loader';
 import { useEffect, useState } from 'react';
+import { ToastContainer, toast } from 'react-toastify';
 
 const API_URL = process.env.REACT_APP_API_URL || 'http://127.0.0.1:5000';
 
@@ -24,8 +26,10 @@ function App() {
       // console.log(res.data)
       setImages(res.data || []);
       setLoading(false);
+      toast.success("Saved images downloaded");
     } catch (error) {
-      // console.log(error);
+      console.log(error);
+      toast.error(error.message);
     }
   };
 
@@ -48,10 +52,12 @@ function App() {
         alert('Not found any image with this name')
       }
       setImages([response.data, ...images]);
+      toast.info(`New image ${word} was found!`)
 
     } catch (error) {
-      console.log('error')
+      console.log('error');
       console.error(error);
+      toast.error(error.message);
     }
 
     console.log('Clear searching form')
@@ -61,12 +67,14 @@ function App() {
   const handleDeleteImage = async (id) => {
     try {
       const res = await axios.delete(`${API_URL}/images/${id}`);
-        if (res.data?.deleted_id) {
-          setImages(images.filter((image) => image.id !== id));
-        }
+      if (res.data?.deleted_id) {
+        setImages(images.filter((image) => image.id !== id));
+      }
+      toast.success(`Image Deleted with success`);
     } catch (error) {
-      // console.log('handleDeleteImage: Error')
-      // console.log(error)
+      console.log('handleDeleteImage: Error');
+      console.log(error);
+      toast.error(error.message);
     }
 
     // console.log("handleDeleteImage")
@@ -93,10 +101,12 @@ function App() {
         // console.log("new_images")
 
         setImages(new_images)
+        toast.success(`Image Saved in database with success`);
       }
     } catch (error) {
-      // console.log('axios handleSaveImage Error');
-      // console.log(error)
+      console.log('axios handleSaveImage Error');
+      console.log(error);
+      toast.error(error.message);
     }
   };
 
@@ -119,8 +129,18 @@ function App() {
           </>
         )
       }
-      
-      {}
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
     </div>
   );
 }

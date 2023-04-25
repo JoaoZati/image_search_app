@@ -15,12 +15,12 @@ function createCardFooter(image) {
 
     let name = image.user.name ? image.user.name: "No author";
     let portfolio_url = image.user.portfolio_url
-    console.log('name:', name);
-    console.log('portfolio_url', portfolio_url)
+    // console.log('name:', name);
+    // console.log('portfolio_url', portfolio_url)
 
     if (!portfolio_url) {
-        console.log("return CardFooter Portifolio")
-        console.log(name)
+        // console.log("return CardFooter Portifolio")
+        // console.log(name)
         cardFooter.push(
             <Card.Footer className="text-center text-muted">
                 {name}
@@ -76,7 +76,7 @@ function ImageCard(props) {
                         <Button
                         variant="danger"
                         style={{width: '90%'}}
-                        onClick={() => {props.handleDeleteImage(image.id)}}
+                        onClick={() => {props.handleDeleteImage(image.id, image._id)}}
                         >
                             Delete
                         </Button>

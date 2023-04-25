@@ -15,7 +15,7 @@ function App() {
   const [images, setImages] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  console.log('function app')
+  // console.log('function app')
   // console.log(images)
 
   const getSavedImages = async () => {
@@ -40,9 +40,9 @@ function App() {
   );
 
   const handleSearchSubmit = async (e) => {
-    console.log('handleSearchSubmit')
+    // console.log('handleSearchSubmit')
     e.preventDefault();
-    console.log(word);
+    // console.log(word);
 
     try {
       const response = await axios.get(API_URL + '/new-image' + `?query=${word}`);
@@ -64,9 +64,9 @@ function App() {
     setWord('')
   };
 
-  const handleDeleteImage = async (id) => {
+  const handleDeleteImage = async (id, _id) => {
     try {
-      const res = await axios.delete(`${API_URL}/images/${id}`);
+      const res = await axios.delete(`${API_URL}/images/${_id}`);
       if (res.data?.deleted_id) {
         setImages(images.filter((image) => image.id !== id));
       }
@@ -85,10 +85,17 @@ function App() {
 
   const handleSaveImage = async (id) => {
     // console.log('handleSaveImage function')
+    
+
     const imageToBeSaved = images.find((image) => image.id === id);
+    if (imageToBeSaved.saved_database) {
+      toast.info(`Image already saved`);
+      return
+    }
     const data = imageToBeSaved
 
-    // console.log(data)
+    console.log("Old Data:")
+    console.log(data)
     try {
       const res = await axios.post(`${API_URL}/images`, data);
       // console.log("handleSaveImage data:")
@@ -96,11 +103,16 @@ function App() {
 
       if (res.data?.id) {
         let new_images = images.map(
-          (image) => image.id === id ? {...image, "saved_database": true}: {...image}
+          (image) => image.id === id ? {...image, "saved_database": true, "_id": res.data._id}: {...image}
         );
-        // console.log("new_images")
+        console.log("data axiso:")
+        console.log(res.data)
 
         setImages(new_images)
+
+        console.log("new_images:")
+        console.log(new_images)
+
         toast.success(`Image Saved in database with success`);
       }
     } catch (error) {
